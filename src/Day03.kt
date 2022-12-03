@@ -1,39 +1,21 @@
 
 fun main() {
 
-    fun getCharPriority(char: Char): Int {
-        return if(char in 'A'..'Z') char - 'A' + 27
-        else char - 'a' + 1
+    fun Char.getCharPriority(): Int = when (this) {
+        in 'A'..'Z' -> this - 'A' + 27
+        in 'a'..'z' -> this - 'a' + 1
+        else -> error("Input $this must be a letter")
     }
 
-    fun part1(input: List<String>): Int {
-        fun getCharOfLine(line: String): Char {
-            require(line.length % 2 == 0) { "line length must be even to split in half was ${line.length} for $line" }
-            val (first, second) = line.chunked(line.length/2)
-            val char = first.toCharArray().toSet().intersect(second.toCharArray().toSet())
-            check(char.size == 1) { "Intersection should be size 1. Is size ${char.size}" }
-            return char.first()
-        }
+    fun part1(input: List<String>): Int = input
+        .map { line -> line.chunked(line.length/2).map { it.toSet() } }
+        .map { (first, second) -> (first intersect second).single() }
+        .sumOf { it.getCharPriority() }
 
-        return input
-            .map { getCharOfLine(it) }
-            .sumOf { getCharPriority(it) }
-    }
-
-    fun part2(input: List<String>): Int {
-        fun getCharOfLines(lines: List<String>): Char {
-            require(lines.size == 3) { "lines size must be 3 was ${lines.size}" }
-            val (first, second, third) = lines.map { it.toCharArray().toSet() }
-            val char = first.intersect(second).intersect(third)
-            check(char.size == 1) { "Intersection should be size 1. Is size ${char.size}" }
-            return char.first()
-        }
-
-        return input
-            .chunked(3)
-            .map { getCharOfLines(it) }
-            .sumOf { getCharPriority(it) }
-    }
+    fun part2(input: List<String>): Int = input
+        .map { it.toSet() }
+        .chunked(3) { (first, second, third) -> (first intersect second intersect third).single() }
+        .sumOf { it.getCharPriority() }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day03_test")
