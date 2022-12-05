@@ -20,6 +20,6 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
     .toString(16)
     .padStart(32, '0')
 
-fun checkEquals(expected: Int, actual: Int, lazyMessage: (Int, Int) -> Any = { e, a -> "expected=$e actual=$a" }) {
+fun checkEquals(expected: Any, actual: Any, lazyMessage: (Any, Any) -> Any = { e, a -> "expected=$e actual=$a" }) {
     check(expected == actual) { lazyMessage(expected, actual) }
 }
