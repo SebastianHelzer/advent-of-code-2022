@@ -15,9 +15,9 @@ fun main() {
         val cols = input.first().length
         val treeMap: Map<Pair<Int, Int>, Int> = getTreeMap(input)
 
-        return treeMap.size - treeMap.count {
-            val (x, y) = it.key
-            val height = it.value
+        return treeMap.size - treeMap.count { entry ->
+            val (x, y) = entry.key
+            val height = entry.value
             val upIndices = 0 until y
             val leftIndices = 0 until x
             val rightIndices = (x + 1) until cols
@@ -35,9 +35,9 @@ fun main() {
         val cols = input.first().length
         val treeMap: Map<Pair<Int, Int>, Int> = getTreeMap(input)
 
-        return treeMap.maxOf {
-            val (x, y) = it.key
-            val height = it.value
+        return treeMap.maxOf { entry ->
+            val (x, y) = entry.key
+            val height = entry.value
             val upIndices = 0 until y
             val leftIndices = 0 until x
             val rightIndices = (x + 1) until cols
