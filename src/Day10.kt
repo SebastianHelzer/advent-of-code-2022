@@ -32,9 +32,8 @@ fun main() {
         return accumulatedSignalStrength
     }
 
-
     fun part2(input: List<String>) {
-        val ops = input.map { ("$it noop").split(" ")[1].toIntOrNull()}
+        val ops = input.map { it.split(" ").getOrNull(1)?.toIntOrNull()}
 
         fun printPixel(cycleNumber: Int, x: Int) {
             val pixelNumber = ((cycleNumber - 1) % 40)
@@ -45,7 +44,6 @@ fun main() {
         processOps(ops, ::printPixel)
     }
 
-    // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day10_test")
     checkEquals(13140, part1(testInput))
     part2(testInput)

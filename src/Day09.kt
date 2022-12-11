@@ -47,21 +47,8 @@ fun main() {
                         t.copy(first = t.first + 2, second = t.second - 2) -> t.copy(first = t.first + 1, t.second - 1)
                         t.copy(first = t.first - 2, second = t.second + 2) -> t.copy(first = t.first - 1, t.second + 1)
                         t.copy(first = t.first - 2, second = t.second - 2) -> t.copy(first = t.first - 1, t.second - 1)
-                        t.copy(first = t.first + 1) -> t
-                        t.copy(first = t.first - 1) -> t
-                        t.copy(second = t.second + 1) -> t
-                        t.copy(second = t.second - 1) -> t
-                        t.copy(first = t.first + 1, second = t.second + 1) -> t
-                        t.copy(first = t.first + 1, second = t.second - 1) -> t
-                        t.copy(first = t.first - 1, second = t.second + 1) -> t
-                        t.copy(first = t.first - 1, second = t.second - 1) -> t
-                        t -> t
-                        else -> {
-                            println("why: $index $t prev=$prev")
-                            t
-                        }
+                        else -> t
                     }
-//                    println("$index t=$t newT=$newT prev=$prev")
 
                     knots[index] = newT
                 }
@@ -79,12 +66,11 @@ fun main() {
         return calculateTailPositions(getMoves(input), 9).count()
     }
 
-    // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day09_test")
     checkEquals(13, part1(testInput))
     checkEquals(1, part2(testInput))
 
     val input = readInput("Day09")
-    println(part1(input))
-    println(part2(input))
+    checkEquals(6470, part1(input))
+    checkEquals(2658, part2(input))
 }
